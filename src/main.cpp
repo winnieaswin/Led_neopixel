@@ -158,66 +158,64 @@ void Task1code(void *pvParameters)
 
       switch (bt)
       {
-      case 'm':
+      case 'm': // music mode
         state = music;
         Serial.printf("Mode changed to MUSIC\n");
         break;
 
-      case 'n':
+      case 'n': // rest mode
         state = repos;
         Serial.printf("Mode changed to REPOS\n");
         break;
-      case 'l':
+      case 'l': // shooting laser
         state = laser;
         Serial.printf("Mode changed to laser\n");
         break;
-      case 'c':
+      case 'c': // active 12 leds core iron man
         strip.updateLength(12);
         strip.clear();
         strip.show();
         Serial.printf("12 leds\n");
-
         break;
 
-      case 'h':
+      case 'h': // active all leds
         strip.updateLength(24);
         strip.clear();
         strip.show();
         Serial.printf("24 leds\n");
         break;
 
-      case 'f':
+      case 'f': // flash grip 
         state = lamp;
         Serial.printf("flashgrip \n");
         break;
 
-      case '+':
+      case '+': //change brightness
         Brig = Brig + 10;
         strip.setBrightness(Brig);
         printf("Brightness = %d \n", Brig);
         SerialBT.printf("Brightness = %d \n", Brig);
         break;
-      case '-':
+      case '-': //change brightness
         Brig = Brig - 10;
         strip.setBrightness(Brig);
         printf("Brightness = %d \n", Brig);
         SerialBT.printf("Brightness = %d \n", Brig);
         break;
       case '*':
-        divv++;
+        divv++; //change calibration sound division
         printf("divv = %d \n", divv);
         SerialBT.printf("divv = %d \n", divv);
         break;
-      case '!':
+      case '!': //change calibration sound division
         divv--;
         printf("divv = %d \n", divv);
         SerialBT.printf("divv = %d \n", divv);
         break;
-      case 'd':
+      case 'd': //active debug mode 
         soundCal = !soundCal;
         printf("sound cal = %d \n", soundCal);
         SerialBT.printf("sound cal = %d \n", soundCal);
-
         break;
       default:
         break;
