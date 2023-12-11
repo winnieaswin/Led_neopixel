@@ -114,8 +114,6 @@ void setup()
   timerAttachInterrupt(My_timer, &onTimer, true);
   timerAlarmWrite(My_timer, 1000000, true);
   timerAlarmEnable(My_timer);
-  // analogReadResolution(10);
-  // adcAttachPin(acPin);
   pinMode(soundPin, INPUT_PULLUP);
 
   xTaskCreatePinnedToCore(
@@ -139,18 +137,6 @@ void Task1code(void *pvParameters)
     speed = readSound();
     if (rstCntSound)
     {
-      // if (speed >= 65 && speed <= 50) {
-      // } else if (speed >= 49 && speed <= 35) {
-      //   wait_sound = 0;
-      // } else if (speed >= 34 && speed <= 20) {
-      //   wait_sound = 20;
-      // } else if (speed >= 19 && speed <= 4) {
-      //   wait_sound = 30;
-      // } else if (speed >= 4 && speed <= 0) {
-      //   wait_sound = 40;
-      // } else {
-      //   wait_sound = 50;
-      // }
 
       if (speed / divv > w_Max)
       {
@@ -160,12 +146,10 @@ void Task1code(void *pvParameters)
       {
         wait_save = w_Max - speed / divv;
       }
-      // printf("speed = %d \n", speed);
-      // printf("wait_sound = %d \n", wait_sound);
+
 
       cntSdSpeed = 0;
       rstCntSound = false;
-      // printf("wait_sound = %d \n",wait_sound);
     }
 
     if (SerialBT.available())
@@ -236,7 +220,6 @@ void Task1code(void *pvParameters)
 
         break;
       default:
-        // Handle other messages if needed
         break;
       }
     }
@@ -277,12 +260,10 @@ void loop()
   case repos:
     iron_man2();
     Serial.printf("repos mode \n");
-    //  SerialBT.printf("repos mode \n");
-    // state = idle;
+     SerialBT.printf("repos mode \n");
     break;
 
   case music:
-    // SerialBT.printf("Music mode wait_sound = %d \n", wait_sound);
     switch (stepMode)
     {
     case 0:
@@ -379,7 +360,6 @@ void loop()
       rpMode = rand() % 2;
     }
 
-    // state = idle;
 
     break;
 
@@ -412,61 +392,10 @@ uint16_t readSound()
   return cntSdSpeed;
 }
 
-void iron_normal(uint16_t d, int time)
-{
-  for (int j = 0; j < time; j++)
-  {
-    for (int i = 0; i < 73; i++)
-    {
-      strip.setBrightness(Brig);
-      strip.fill(strip.Color(red, green, blue), 0, NUM_PIXELS);
-      strip.show();
-      delay(d);
-
-      if (revGreen == false)
-      {
-        red += 2;
-        green += 3;
-      }
-      else
-      {
-        red -= 2;
-        green -= 3;
-      }
-      if (green > 220)
-      {
-        revGreen = true;
-      }
-      else if (green == 0)
-      {
-        revGreen = false;
-      }
-      if (Brig > 20)
-      {
-        revBrig = true;
-      }
-      if (Brig == 2)
-      {
-        revBrig = false;
-      }
-      if (revBrig == false)
-      {
-        Brig++;
-      }
-      else
-      {
-        Brig--;
-      }
-      Serial.printf("red = %d , green = %d , blue = %d , brig = %d , time = %d \n", red, green, blue, Brig, j);
-    }
-  }
-}
-
 void iron_man2()
 {
   for (int i = 0; i < 5; i++)
   {
-
     strip.setBrightness(5 + (i * 3));
     strip.fill(blueScale[i], 0, NUM_PIXELS);
     strip.show();
@@ -475,7 +404,6 @@ void iron_man2()
 
   for (int i = 5; i > 0; i--)
   {
-
     strip.setBrightness(5 + (i * 3));
     strip.fill(blueScale[i], 0, NUM_PIXELS);
     strip.show();
